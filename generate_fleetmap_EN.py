@@ -5,6 +5,8 @@ minimal in-figure text (symbol key only; descriptive caption supplied separately
 Liberation Sans (Arial-equivalent) embedded, vector PDF + 600 dpi PNG.
 """
 import numpy as np
+from pathlib import Path
+HERE = Path(__file__).resolve().parent
 import geopandas as gpd
 from shapely.ops import unary_union
 import matplotlib
@@ -64,7 +66,7 @@ def drop_holes(g):
     if g.geom_type == "Polygon": return Polygon(g.exterior)
     if g.geom_type == "MultiPolygon": return MultiPolygon([Polygon(p.exterior) for p in g.geoms])
     return g
-poland = gpd.read_file("geo/gadm41_POL_2.json").to_crs("EPSG:2180")
+poland = gpd.read_file(str(HERE / "geo" / "gadm41_POL_2.json")).to_crs("EPSG:2180")
 voiv = (poland.dissolve(by="NAME_1") if "NAME_1" in poland.columns else poland).reset_index(drop=True)
 country = drop_holes(unary_union(voiv.geometry).buffer(0))
 minx, miny, maxx, maxy = country.bounds
@@ -179,8 +181,8 @@ for _i in range(len(_tx)):
 print("KOLIZJE:", "brak" if not _iss else "WYKRYTE")
 for i in sorted(set(_iss)): print("  -", i)
 
-pdf = "Figure1_fleet_dislocation_EN.pdf"
-png = "Figure1_fleet_dislocation_EN.png"
+pdf = str(HERE / "Figure1_fleet_dislocation_EN.pdf")
+png = str(HERE / "Figure1_fleet_dislocation_EN.png")
 plt.savefig(pdf, bbox_inches="tight", facecolor="white")           # vector, fonts embedded
 plt.savefig(png, dpi=600, bbox_inches="tight", facecolor="white")  # high-res preview
 plt.close()

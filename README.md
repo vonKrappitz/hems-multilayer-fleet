@@ -1,4 +1,4 @@
-# Reproducibility package — (Air Medical Journal)
+# Reproducibility package — Part II (Air Medical Journal)
 "Matching aircraft to mission: a multilayer fleet ... with a forecast for air ECMO transport"
 Author: Maciej Marcin Kasperek (ORCID 0009-0008-7419-0851).
 
@@ -17,12 +17,13 @@ helicopters, the full sensitivity grid, and Figure 1.
   table and the sensitivity grid. Reproduces e-Table 1 and Table 2.
 - `generate_fleetmap_EN.py` — renders Figure 1 (fleet dislocation map) as vector PDF + PNG.
 - `caravan_basing.py` — places the 3 fixed-wing (Cessna Grand Caravan EX) bases by a population-weighted p-median on the same WorldPop raster, with candidates restricted to the 7 CRL hub airports. Reproduces the fixed-wing base selection (Warsaw, Krakow, Poznan).
-- `geo/pl_pop_1km.tif` — WorldPop 2020 population raster, 1 km, clipped to Poland.
+- `fetch_gadm.py` — downloads the GADM v4.1 boundary into `geo/`. The file is not shipped, the GADM licence forbids redistribution. Run this once before the map.
+- `geo/gadm41_POL_2.json` — administrative boundary, GADM v4.1. Not shipped, produced by `fetch_gadm.py`.
+- `geo/pl_pop_1km.tif` — WorldPop 2020 population raster, 1 km, clipped to Poland. CC-BY 4.0, shipped here.
 - `requirements.txt` — Python dependencies.
-- `fetch_gadm.py` — downloads the GADM v4.1 boundary into `geo/`. The file is not shipped, the GADM licence forbids redistribution. Run this once before the figures.
-- `geo/gadm41_POL_2.json` — administrative boundary, GADM v4.1 (land area of Poland). Not shipped, produced by `fetch_gadm.py`.
 
 ## Data provenance (external, public)
+
 - GADM v4.1 — https://gadm.org/. The GADM licence allows academic use and the making of maps for research articles, but does not allow redistribution of the data. The boundary file is therefore not shipped here. Run `python3 fetch_gadm.py` to download it into `geo/`.
 - WorldPop 2020, Poland, 1 km — https://www.worldpop.org/. Released under CC-BY 4.0, the clipped raster is shipped here in `geo/`.
 Cite both original sources in any derived work.
@@ -31,12 +32,12 @@ Cite both original sources in any derived work.
 ```
 python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
+python3 fetch_gadm.py           # -> geo/gadm41_POL_2.json (GADM boundary, not shipped)
 python3 voronoi_fleet.py        # per-base allocation + sensitivity grid
 python3 generate_fleetmap_EN.py # Figure 1 (PDF + PNG)
 python3 caravan_basing.py       # fixed-wing (Caravan) base selection
-python3 fetch_gadm.py           # downloads the GADM v4.1 boundary into `geo/`
 ```
-Paths assume this folder (raster and boundary under geo/); adjust if you relocate files.
+The scripts resolve every path relative to their own location, so they run from any working directory. The raster and boundary live under `geo/`, fetch the boundary first with `python3 fetch_gadm.py`.
 
 ## Expected output (verified)
 - Per-base allocation: Gliwice-Trynek 3; Warsaw, Krakow, Wroclaw, Lask, Torun 2 each;
@@ -52,7 +53,7 @@ bases differ by tens of thousands of inhabitants because of nearest-base tie han
 sector edges. These differences do not change any per-base helicopter count or the total.
 
 ## Licence
-Code: Apache 2.0. Data: per GADM and WorldPop terms. Coordinates (loc28.json): CC BY 4.0.
+Code under Apache 2.0. The WorldPop raster (`geo/pl_pop_1km.tif`) is CC-BY 4.0 and is shipped here. The GADM boundary is not shipped, it is fetched by `fetch_gadm.py`, and the GADM licence allows academic map-making but not redistribution. Coordinates (`loc28.json`) are CC BY 4.0.
 The version of record will be archived with a citable DOI (e.g. Zenodo) on publication.
 
 ## How to cite

@@ -6,11 +6,13 @@ and divided by a single-aircraft capacity of 2.74 missions/day (rounded up) to g
 the number of HEMS helicopters per base. Also prints the sensitivity grid.
 """
 import json, math, numpy as np, rasterio, pyproj
+from pathlib import Path
+HERE = Path(__file__).resolve().parent
 from scipy.spatial import cKDTree
 
 RATE_DRF=43.2; CAP=2.74
 f=lambda s: float(str(s).replace(',','.'))
-d=json.load(open("loc28.json"))
+d=json.load(open(HERE / "loc28.json"))
 # 21 primary bases = 7 CRL + 14 CT (exclude Rzeszów, the 22nd/standby)
 bases=[(r[1],f(r[8]),f(r[9])) for r in d
        if (r[0]=="CRL") or (r[0]=="CT" and "Rzeszów" not in r[1])]
@@ -19,7 +21,7 @@ tr=pyproj.Transformer.from_crs("EPSG:4326","EPSG:2180",always_xy=True)
 bxy=np.array([tr.transform(lo,la) for _,la,lo in bases])
 tree=cKDTree(bxy)
 
-with rasterio.open("geo/pl_pop_1km.tif") as src:
+with rasterio.open(str(HERE / "geo" / "pl_pop_1km.tif")) as src:
     pop=src.read(1).astype(float); T=src.transform; crs=src.crs
     nod=src.nodata
 pop[~np.isfinite(pop)]=0

@@ -9,10 +9,12 @@ population-weighted distance from each inhabited cell to its nearest of 3 bases.
 Classic p-median (Hakimi 1964; ReVelle and Swain 1970). Distances in EPSG:2180 (m).
 """
 import json, numpy as np, rasterio, pyproj
+from pathlib import Path
+HERE = Path(__file__).resolve().parent
 from itertools import combinations
 
 f = lambda s: float(str(s).replace(",", "."))
-d = json.load(open("loc28.json"))
+d = json.load(open(HERE / "loc28.json"))
 # candidate fixed-wing bases = 7 CRL hub airports (network HEMS infrastructure)
 hubs = [(r[1], f(r[8]), f(r[9])) for r in d if r[0] == "CRL"]
 names = [h[0] for h in hubs]
@@ -20,7 +22,7 @@ names = [h[0] for h in hubs]
 tr = pyproj.Transformer.from_crs("EPSG:4326", "EPSG:2180", always_xy=True)
 hxy = np.array([tr.transform(lo, la) for _, la, lo in hubs])
 
-with rasterio.open("geo/pl_pop_1km.tif") as src:
+with rasterio.open(str(HERE / "geo" / "pl_pop_1km.tif")) as src:
     pop = src.read(1).astype(float); T = src.transform; crs = src.crs; nod = src.nodata
 pop[~np.isfinite(pop)] = 0
 if nod is not None: pop[pop == nod] = 0
