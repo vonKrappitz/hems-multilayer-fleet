@@ -19,7 +19,7 @@ helicopters, the full sensitivity grid, and Figure 1.
 - `caravan_basing.py` — places the 3 fixed-wing (Cessna Grand Caravan EX) bases by a population-weighted p-median on the same WorldPop raster, with candidates restricted to the 7 CRL hub airports. Reproduces the fixed-wing base selection (Warsaw, Krakow, Poznan).
 - `geo/pl_pop_1km.tif` — WorldPop 2020 population raster, 1 km, clipped to Poland.
 - `requirements.txt` — Python dependencies.
--  fetch_gadm.py — downloads GADM maps 
+- `fetch_gadm.py` — downloads GADM maps 
 
 ## How to run
 ```
