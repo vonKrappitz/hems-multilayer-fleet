@@ -1,0 +1,18 @@
+Reproducibility package - Part II "Matching aircraft to mission:
+a multilayer fleet for a national helicopter emergency medical service,
+with a forecast for air ECMO transport"
+Author: Maciej Marcin Kasperek (ORCID 0009-0008-7419-0851)
+
+CODE
+  voronoi_fleet.py, generate_fleetmap_EN.py
+  Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+DATA
+  geo/pl_pop_1km.tif - WorldPop population raster, 2020, 1 km, clipped to Poland.
+    Source WorldPop, www.worldpop.org. Licensed CC BY 4.0.
+  geo/gadm41_POL_2.json - administrative boundary, GADM version 4.1.
+    Source GADM, gadm.org. Free for academic and non-commercial use, see GADM licence.
+  loc28.json - base coordinates compiled by the author. Licensed CC BY 4.0.
+
+Attribution of the WorldPop and GADM datasets is required when the data are
+redistributed or reused.
