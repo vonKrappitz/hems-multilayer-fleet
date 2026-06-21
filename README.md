@@ -22,6 +22,11 @@ helicopters, the full sensitivity grid, and Figure 1.
 - `fetch_gadm.py` — downloads the GADM v4.1 boundary into `geo/`. The file is not shipped, the GADM licence forbids redistribution. Run this once before the figures.
 - `geo/gadm41_POL_2.json` — administrative boundary, GADM v4.1 (land area of Poland). Not shipped, produced by `fetch_gadm.py`.
 
+## Data provenance (external, public)
+- GADM v4.1 — https://gadm.org/. The GADM licence allows academic use and the making of maps for research articles, but does not allow redistribution of the data. The boundary file is therefore not shipped here. Run `python3 fetch_gadm.py` to download it into `geo/`.
+- WorldPop 2020, Poland, 1 km — https://www.worldpop.org/. Released under CC-BY 4.0, the clipped raster is shipped here in `geo/`.
+Cite both original sources in any derived work.
+
 ## How to run
 ```
 python3 -m venv venv && source venv/bin/activate
@@ -29,6 +34,7 @@ pip install -r requirements.txt
 python3 voronoi_fleet.py        # per-base allocation + sensitivity grid
 python3 generate_fleetmap_EN.py # Figure 1 (PDF + PNG)
 python3 caravan_basing.py       # fixed-wing (Caravan) base selection
+python3 fetch_gadm.py           # downloads the GADM v4.1 boundary into `geo/`
 ```
 Paths assume this folder (raster and boundary under geo/); adjust if you relocate files.
 
