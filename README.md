@@ -1,4 +1,4 @@
-# Reproducibility package — Part II (Air Medical Journal)
+# Reproducibility package — (Air Medical Journal)
 "Matching aircraft to mission: a multilayer fleet ... with a forecast for air ECMO transport"
 Author: Maciej Marcin Kasperek (ORCID 0009-0008-7419-0851).
 
@@ -17,9 +17,9 @@ helicopters, the full sensitivity grid, and Figure 1.
   table and the sensitivity grid. Reproduces e-Table 1 and Table 2.
 - `generate_fleetmap_EN.py` — renders Figure 1 (fleet dislocation map) as vector PDF + PNG.
 - `caravan_basing.py` — places the 3 fixed-wing (Cessna Grand Caravan EX) bases by a population-weighted p-median on the same WorldPop raster, with candidates restricted to the 7 CRL hub airports. Reproduces the fixed-wing base selection (Warsaw, Krakow, Poznan).
-- `geo/gadm41_POL_2.json` — administrative boundary, GADM v4.1.
 - `geo/pl_pop_1km.tif` — WorldPop 2020 population raster, 1 km, clipped to Poland.
 - `requirements.txt` — Python dependencies.
+-  fetch_gadm.py — downloads GADM maps 
 
 ## How to run
 ```
@@ -50,6 +50,6 @@ The version of record will be archived with a citable DOI (e.g. Zenodo) on publi
 
 ## How to cite
 Software: Kasperek, M.M. Multilayer HEMS fleet — reproducibility package (Python software), Apache-2.0 licence.
-GitHub: <add repository URL after creating the repo>
+GitHub: https://github.com/vonKrappitz/hems-multilayer-fleet
 Zenodo DOI: <add DOI after the Zenodo release>
 The citation for the associated study will be added once it is published.
